@@ -1,0 +1,184 @@
+*{
+	box-sizing: border-box;
+}
+body{
+	font-family: helvetica;
+	background: #eee;
+	-webkit-font-smoothing: none;
+	/*CSS3属性-webkit-font-smoothing字体抗锯齿渲染
+	 * 
+	 */
+}
+hgroup{
+	text-align: center;
+	margin-top: 4em;
+}
+h1,h3{
+	font-weight: 300;
+}
+h1{
+	color: #636363;
+}
+h3{
+	color: #4a89dc;
+}
+form{
+	width: 380px;
+	margin: 4em auto;
+	padding: 3em 2em 2em 2em;
+	background: #fafafa;
+	border: 1px solid #ebebeb;
+	box-shadow: rgba(0,0,0,0.15) 0px 1px 1px 0px,rgba(0,0,0,0.098) 0px 1px 2px 0px;
+	/*rgba是CSS3中的属性。rgba括号中前3个数字代表着 red green blue三种颜色的rgb值，0-255，
+	最后一个是设定这个颜色的透明度即alpha值。范围从0到1，越接近1，代表透明度越低 */
+	/*注释：box-shadow 向框添加一个或多个阴影。该属性是由逗号分隔的阴影列表，每个阴影由 2-4 个长度值、可选的颜色值以及可选的 inset 关键词来规定
+	 */
+}
+.group{
+	position: relative;
+	margin-bottom: 45px;
+}
+input{
+	font-size: 18px;
+	padding: 10px 10px 10px 5px;
+	-webkit-appearance: none;
+	/*webkit-appearance 是一个 不规范的属性（unsupported WebKit property），它没有出现在 CSS 规范草案中
+	 * 改变按钮和其他控件的外观，使其类似于原生控件
+	 * none 去除系统默认appearance的样式,常用于IOS下移除原生样式
+	 */
+	display: block;
+	background: #FAFAFA;
+	color: #636363;
+	width: 100%;
+	border: none;
+	border-radius: 0;
+	border-bottom: 1px solid #757575;
+}
+input:focus{
+	outline: none;
+}
+label{
+	color: #999;
+	font-size: 18px;
+	font-weight: normal;
+	position: absolute;
+	pointer-events:none ;
+	/* pointer-events是CSS3中的属性,鼠标事件拜拜的意思。元素应用了该CSS属性，
+	 * 链接啊，点击啊什么的都变成了“浮云牌酱油”
+	 */
+	left: 5px;
+	top: 10px;
+	transition: all 0.2s ease;/*transition 属性是一个简写属性，用于设置四个过渡属性*/
+}
+/*	E ~ F	匹配任何在E元素之后的同级F元素
+    E,F 多元素选择器，同时匹配所有E元素或F元素，E和F之间用逗号分隔
+  */
+input:focus ~ label,input.used ~ label{
+	top:-20px;
+	left: -2px;
+	transform: scale(0.75);/*transform 属性向元素应用 2D 或 3D 转换。该属性允许我们对元素进行旋转、缩放、移动或倾斜*/
+	color: #4a89dc;
+}
+.bar{
+	position: relative;
+	display: block;
+	width: 100%;
+}
+.bar:before,.bar:after{
+	content: '';/*content 属性与 :before 及 :after 伪元素配合使用，来插入生成内容*/
+	height: 2px;
+	width: 0;
+	bottom: 1px;
+	position: absolute;
+	background: #4a89dc;
+	transition: all 0.2s ease;
+}
+.bar:before{
+	left: 50%;
+}
+.bar:after{
+	right: 50%;
+}
+input:focus ~ .bar:before,input:focus ~ .bar:after{
+	width: 50%;
+}
+.highlight{
+	position: absolute;
+	height: 60%;
+	width: 100px;
+	top: 25%;
+	left: 0;
+	pointer-events: none;
+	opacity: 0.5;/*opacity 属性设置元素的不透明级别。从 0.0 （完全透明）到 1.0（完全不透明）*/
+}
+input:focus ~ .highlight{
+	animation: inputHighlighter 0.3s ease;
+}
+@keyframes inputHighlighter{
+	from{background:#4a89dc}
+	to{width: 0;background: transparent;}
+}
+button{
+	position: relative;
+	padding: 12px 24px;
+	margin: .3em 0 1em 0;
+	width: 100%;
+	vertical-align: middle;
+	color: #fff;
+	font-size: 16px;
+	line-height: 20px;
+	-webkit-font-smoothing: antialiased;
+	text-align: center;
+	letter-spacing: 1px;/*etter-spacing 属性增加或减少字符间的空白（字符间距）*/
+	background: transparent;
+	border: 0;
+	border-bottom: 2px solid #3160b6;
+	cursor: pointer;
+	transition: all 0.15s ease;
+}
+button:focus{
+	outline: 0;
+}
+.buttonBlue{
+	background: #4a89dc;
+	text-shadow: 1px 1px 0 rgba(39,110,204,.5);/*text-shadow 属性向文本设置阴影。*/
+}
+.buttonBlue:hover{
+	background: #357bd8;
+}
+.buttonRipples{
+	position: absolute;
+	top: 0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background: transparent;
+}
+.ripplesCircle{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);/*translate(x,y)	定义 2D 转换*/
+	opacity: 0;
+	width: 0;
+	height: 0;
+	border-radius: 50%;
+	background: rgba(255,255,255,0.25);
+}
+.ripples.is-active .ripplesCircle {
+  animation: ripples .4s ease-in;
+}
+/* Ripples animation */
+
+@keyframes ripples {
+  0% { opacity: 0; }
+
+  25% { opacity: 1; }
+
+  100% {
+    width: 200%;
+    padding-bottom: 200%;
+    opacity: 0;
+  }
+}
